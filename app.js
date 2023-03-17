@@ -1,5 +1,8 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const hbs = require("hbs");
+
+const Pizza = require("./models/Pizza.model.js");
 
 const app = express();
 
@@ -14,6 +17,24 @@ app.use(express.static('public'));
 hbs.registerPartials(__dirname + "/views/partials"); //tell HBS which directory we use for partials
 
 
+//connect to DB
+mongoose
+  .connect('mongodb://127.0.0.1/warriors-bites')
+  .then(x => {
+    console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`);
+  })
+  .catch( e => {
+    console.log("error connecting to DB", e);
+  })
+
+
+
+/***********/
+/* ROUTES */
+/***********/
+
+
+
 //Route for homepage
 app.get("/", (request, response, next) => {
     response.render("home");
@@ -26,43 +47,35 @@ app.get("/contact", (request, response, next) => {
 })
 
 
-//GET /pizzas/margarita
-app.get("/pizzas/margarita", (request, response, next) => {
-
-    const data = {
-        title: 'Pizza Margarita',
-        price: 12,
-        imageFile: 'pizza-margarita.jpg',
-        ingredients: ['mozzarella', 'tomato sauce', 'basilicum'],
-    };
-
-    response.render("product", data);
-});
-
-
-//GET /pizzas/veggie
-app.get("/pizzas/veggie", (request, response, next) => {
-
-    const data = {
-        title: 'Veggie Pizza',
-        price: 15,
-        imageFile: 'pizza-veggie.jpg',
-        ingredients: ['cherry tomatoes', 'basilicum', 'Olives'],
-    };
+//GET /pizzas
+app.get("/pizzas", (request, response, next) => {
     
-    response.render("product", data);
+    //BONUS ;)
+    //BONUS ;)
+
+    const data = {
+        pizzas: pizzasArr
+    }
+
+    response.render("product-list", data);
+
 });
 
 
-//GET /pizzas/seafood
-app.get("/pizzas/seafood", (request, response, next) => {
+//GET /pizzas/:pizzaName
+app.get("/pizzas/:pizzaName", (request, response, next) => {
+    
+    const nameOfMyPizza = request.params.pizzaName;
 
-    const data = {
-        title: 'Seafood Pizza',
-        imageFile: 'pizza-seafood.jpg',
-    };
+    Pizza.findOne({name: nameOfMyPizza})
+        .then( (pizzaDetails) => {
+            console.log(pizzaDetails)
+            response.render("product", pizzaDetails);
+        } )
+        .catch(e => {
+            console.log("error getting pizza details from DB", e)
+        });
 
-    response.render("product", data);
 });
 
 
