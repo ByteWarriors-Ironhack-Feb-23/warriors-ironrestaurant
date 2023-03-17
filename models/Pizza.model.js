@@ -19,8 +19,9 @@ const pizzaSchema = new Schema({
     },
     dough: {
         type: String,
-        enum: ["thin", "thick", "with cheese", "with garlic"]
+        enum: ["thin", "thick", "with cheese", "with garlic"],
     },
+    imageFile: String
 });
 
 //create Model

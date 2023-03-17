@@ -7,7 +7,7 @@ mongoose
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`);
 
-    //return Pizza.deleteMany({}); //WARNING: this will delete all pizzas in your DB !!
+    // return Pizza.deleteMany({}); //WARNING: this will delete all pizzas in your DB !!
   })
   .then( (response) => {
     console.log(response);
@@ -16,17 +16,20 @@ mongoose
         {
             name: "margarita",
             price: 12,
-            ingredients: ["mozzarella", "tomato sauce", "basilicum"]
+            ingredients: ["mozzarella", "tomato sauce", "basilicum"],
+            imageFile: 'pizza-margarita.jpg',
         },
         {
             name: "veggie",
             price: 15,
-            ingredients: ["tomato", "cucumber", "olives"]
+            ingredients: ["tomato", "cucumber", "olives"],
+            imageFile: 'pizza-veggie.jpg',
         },
         {
             name: "seafood",
             price: 20,
-            ingredients: ["mozzarella", "tomato", "prawn"]
+            ingredients: ["mozzarella", "tomato", "prawn"],
+            imageFile: 'pizza-seafood.jpg',
         },
         {
             name: "Hawaiian",
