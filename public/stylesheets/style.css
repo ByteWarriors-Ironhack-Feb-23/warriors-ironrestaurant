@@ -25,6 +25,13 @@ nav a {
     margin: 2rem;
 }
 
+.card {
+    border: 1px solid rgb(143, 93, 0);
+    margin: 2rem;
+    border-radius: 0.8rem;
+    box-shadow: 5px 5px 10px -5px #333;
+}
+
 #home-image {
     max-height: 350px;
     width: auto;

@@ -36,47 +36,53 @@ mongoose
 
 
 //Route for homepage
-app.get("/", (request, response, next) => {
-    response.render("home");
+app.get("/", (req, res, next) => {
+    res.render("home");
 });
 
 
 //Route for contact page
-app.get("/contact", (request, response, next) => {
-    response.render("contact-page");
+app.get("/contact", (req, res, next) => {
+    res.render("contact-page");
 })
 
 
 //GET /pizzas
-app.get("/pizzas", (request, response, next) => {
-    
-    //BONUS ;)
-    //BONUS ;)
+app.get("/pizzas", (req, res, next) => {
 
-    const data = {
-        pizzas: pizzasArr
-    }
+    Pizza.find()
+        .then( pizzasArr => {
+            
+            const data = {
+                pizzas: pizzasArr
+            };
 
-    response.render("product-list", data);
+            res.render("product-list", data);
+        })
+        .catch(e => {
+            console.log("error getting list of pizzas from DB", e)
+        });
 
 });
 
 
+
 //GET /pizzas/:pizzaName
-app.get("/pizzas/:pizzaName", (request, response, next) => {
+app.get("/pizzas/:pizzaName", (req, res, next) => {
     
-    const nameOfMyPizza = request.params.pizzaName;
+    const nameOfMyPizza = req.params.pizzaName;
 
     Pizza.findOne({name: nameOfMyPizza})
         .then( (pizzaDetails) => {
             console.log(pizzaDetails)
-            response.render("product", pizzaDetails);
+            res.render("product", pizzaDetails);
         } )
         .catch(e => {
             console.log("error getting pizza details from DB", e)
         });
 
 });
+
 
 
 
