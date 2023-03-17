@@ -1,8 +1,13 @@
 <h1>List of pizzas</h1>
 
+
 {{#each pizzas}}
     <section class="card">
         <h2>{{this.name}}</h2>
         <h3>Price: {{this.price}}</h3>
+    </section>
+{{else}}
+    <section class="card">
+        <p>Sorry, no pizza with your search criteria.</p>
     </section>
 {{/each}}

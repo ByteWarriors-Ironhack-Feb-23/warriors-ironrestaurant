@@ -50,7 +50,19 @@ app.get("/contact", (req, res, next) => {
 //GET /pizzas
 app.get("/pizzas", (req, res, next) => {
 
-    Pizza.find()
+    let maxPrice = req.query.maxPrice;
+    // const {maxPrice} = req.query;
+
+    maxPrice = Number(maxPrice); //convert to a number
+
+
+    let filter = {};
+    if(maxPrice){
+        filter = {price: {$lte: maxPrice}};
+    }
+
+
+    Pizza.find(filter)
         .then( pizzasArr => {
             
             const data = {
