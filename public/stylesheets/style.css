@@ -27,6 +27,7 @@ nav a {
 
 .card {
     border: 1px solid rgb(143, 93, 0);
+    padding: 1rem;
     margin: 2rem;
     border-radius: 0.8rem;
     box-shadow: 5px 5px 10px -5px #333;

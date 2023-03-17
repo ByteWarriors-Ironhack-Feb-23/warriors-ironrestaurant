@@ -1,10 +1,14 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const hbs = require("hbs");
+const bodyParser = require('body-parser');
+
 
 const Pizza = require("./models/Pizza.model.js");
 
 const app = express();
+
+app.use(bodyParser.urlencoded({ extended: true })); //config body-parser
 
 app.set("views", __dirname + "/views"); //tells our Express app where to look for our views
 app.set("view engine", "hbs"); //sets HBS as the template engine
@@ -96,6 +100,20 @@ app.get("/pizzas/:pizzaName", (req, res, next) => {
 });
 
 
+//POST /login
+app.post("/login", (req, res, next) => {
+
+    const {email, pw} = req.body;
+
+    if(pw === "1234"){
+        res.send("all good, you're logged in my friend!");
+    } else {
+        res.send(`Hello ${email} we've received your request to login but we don't like your password.`);
+    }
+
+
+    res.send("processing your request to login...");
+});
 
 
 app.listen(3001, () => { console.log("server listening on port 3001")});
