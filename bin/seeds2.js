@@ -3,7 +3,7 @@ const Pizza = require("../models/Pizza.model");
 
 
 mongoose
-  .connect('mongodb://127.0.0.1/nameOfYourDataBase')
+  .connect('mongodb://127.0.0.1:27017/nameOfYourDataBase')
   .then(x => {
     console.log(`Connected! Database name: "${x.connections[0].name}"`);
 
